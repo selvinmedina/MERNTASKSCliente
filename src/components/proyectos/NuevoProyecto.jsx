@@ -4,7 +4,7 @@ import proyectoContext from "../../context/proyectos/proyectoContext";
 const NuevoProyecto = () => {
   // Obtener el state del formulario
   const proyectosContext = useContext(proyectoContext);
-  const { formulario } = proyectoContext;
+  const { formulario, mostrarFormulario } = proyectosContext;
 
   // State para proyecto
   const [proyecto, setProyecto] = useState({
@@ -35,26 +35,33 @@ const NuevoProyecto = () => {
 
   return (
     <Fragment>
-      <button className='btn btn-block btn-primario'>Nuevo Proyecto</button>
-      <form
-        action=''
-        className='formulario-nuevo-proyecto'
-        onSubmit={onSubmitProyecto}
+      <button
+        className='btn btn-block btn-primario'
+        onClick={mostrarFormulario} // Mostrar el formulario
       >
-        <input
-          type='text'
-          className='input-text'
-          placeholder='Nombre Proyecto'
-          name='nombre'
-          value={nombre}
-          onChange={onChangeProyecto}
-        />
-        <input
-          type='submit'
-          value='Agregar Proyecto'
-          className='btn btn-primario btn-block'
-        />
-      </form>
+        Nuevo Proyecto
+      </button>
+      {formulario ? (
+        <form
+          action=''
+          className='formulario-nuevo-proyecto'
+          onSubmit={onSubmitProyecto}
+        >
+          <input
+            type='text'
+            className='input-text'
+            placeholder='Nombre Proyecto'
+            name='nombre'
+            value={nombre}
+            onChange={onChangeProyecto}
+          />
+          <input
+            type='submit'
+            value='Agregar Proyecto'
+            className='btn btn-primario btn-block'
+          />
+        </form>
+      ) : null}
     </Fragment>
   );
 };
