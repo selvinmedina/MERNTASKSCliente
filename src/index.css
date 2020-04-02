@@ -321,3 +321,15 @@ aside {
   display: block;
   opacity: 0.7;
 }
+
+.cancelar {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 2rem;
+  margin-left: 1.3rem;
+  color: #fff;
+}
+
+.cancelar:hover {
+  cursor: pointer;
+}

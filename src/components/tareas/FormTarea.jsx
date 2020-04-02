@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import proyectoContext from "../../context/proyectos/proyectoContext";
 import TareaContext from "../../context/tareas/tareaContext";
 
@@ -12,16 +12,41 @@ const FormTarea = () => {
 
   // Extraer funciones y objetos de tarea context
   const {
+    tareaSeleccionada,
     errorTarea,
     agregarTarea,
     validarTarea,
-    obtenerTareas
+    obtenerTareas,
+    actualizarTarea,
+    limpiarTarea
   } = tareasContext;
 
   // State del formulario
   const [tarea, setTarea] = useState({
     nombre: ""
   });
+
+  // Focus a una tarea
+  const focusTarea = () => {
+    document.getElementById("nombreTarea").focus();
+  };
+
+  const eliminarTareaSeleccionada = () => {
+    limpiarTarea();
+    focusTarea();
+  };
+
+  // Effect que detecta una tarea seleccionada
+  useEffect(() => {
+    if (tareaSeleccionada !== null) {
+      setTarea(tareaSeleccionada);
+      focusTarea();
+    } else {
+      setTarea({
+        nombre: ""
+      });
+    }
+  }, [tareaSeleccionada]);
 
   // Si no hay proyecto seleccionado
   if (!proyecto) return null;
@@ -50,10 +75,19 @@ const FormTarea = () => {
       return;
     }
 
-    // Nueva tarea al state de tareas
-    tarea.proyectoId = proyectoActual.id;
-    tarea.estado = false;
-    agregarTarea(tarea);
+    // Si es edicion o si es nueva tarea
+    if (tareaSeleccionada === null) {
+      // Tarea nueva
+
+      // Nueva tarea al state de tareas
+      tarea.proyectoId = proyectoActual.id;
+      tarea.estado = false;
+      agregarTarea(tarea);
+    } else {
+      // Actualizar tarea existente
+      actualizarTarea(tarea);
+      eliminarTareaSeleccionada();
+    }
 
     // Obtener y filtrar las taras del proyecto actual
     obtenerTareas(proyectoActual.id);
@@ -77,12 +111,18 @@ const FormTarea = () => {
             className='input-text'
             onChange={handleChange}
           />
+          {tareaSeleccionada ? (
+            <i className='cancelar' onClick={eliminarTareaSeleccionada}>
+              x
+            </i>
+          ) : null}
         </div>
+        {/* <button className='btn btn-secundario'>x</button> */}
 
         <div className='contenedor-input'>
           <input
             type='submit'
-            value='Agregar Tarea'
+            value={tareaSeleccionada ? "Editar tarea" : "Agregar Tarea"}
             className='btn btn-primario btn-submit btn-block'
           />
         </div>
