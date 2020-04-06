@@ -1,4 +1,4 @@
-import React, { usereducer } from 'react';
+import React, { useReducer } from 'react';
 import { MOSTRAR_ALERTA, OCULTAR_ALERTA } from '../../types';
 import alertaReducer from './alertaReducer';
 import alertaContext from './alertaContext';
@@ -9,7 +9,7 @@ const AlertaState = props => {
         alert: null
     }
 
-    const [state, dispatch] = usereducer(alertaReducer, initialState);
+    const [state, dispatch] = useReducer(alertaReducer, initialState);
 
     // Funciones
 
@@ -22,6 +22,7 @@ const AlertaState = props => {
             }
         });
 
+        // despues de 5 segundos limpiar la alerta
         setTimeout(() => {
             dispatch({
                 type: OCULTAR_ALERTA
