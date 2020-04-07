@@ -17,7 +17,7 @@ const Proyecto = ({ proyecto }) => {
 
   // Funcion para agregar el proyecto actual
   const seleccionarProyecto = (id) => {
-    proyectoActual(proyecto.id); // Fijar un proyecto actual
+    proyectoActual(proyecto._id); // Fijar un proyecto actual
     obtenerTareas(id); // Filtrar las tareas cuando se de click
   };
 
@@ -26,7 +26,7 @@ const Proyecto = ({ proyecto }) => {
       <button
         type='button'
         className='btn btn-blank'
-        onClick={() => seleccionarProyecto(proyecto.id)}
+        onClick={() => seleccionarProyecto(proyecto._id)}
       >
         {proyecto.nombre}
       </button>

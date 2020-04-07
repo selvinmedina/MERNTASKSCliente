@@ -6,7 +6,7 @@ import alertaContext from './alertaContext';
 const AlertaState = props => {
 
     const initialState = {
-        alert: null
+        alerta: null
     }
 
     const [state, dispatch] = useReducer(alertaReducer, initialState);
