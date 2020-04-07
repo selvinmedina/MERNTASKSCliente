@@ -16,7 +16,7 @@ const Proyecto = ({ proyecto }) => {
   const { obtenerTareas } = tareasContext;
 
   // Funcion para agregar el proyecto actual
-  const seleccionarProyecto = id => {
+  const seleccionarProyecto = (id) => {
     proyectoActual(proyecto.id); // Fijar un proyecto actual
     obtenerTareas(id); // Filtrar las tareas cuando se de click
   };
