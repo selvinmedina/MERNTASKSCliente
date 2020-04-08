@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from "react";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 import proyectoContext from "../../context/proyectos/proyectoContext";
 
 const NuevoProyecto = () => {
@@ -7,31 +7,41 @@ const NuevoProyecto = () => {
 
   // Extraer funciones y objetos del context
   const {
+    proyectoEditar, // Contiene el proyecto a editiar
     formulario,
     errorformulario,
     agregarProyecto,
     mostrarFormulario,
-    mostrarError
+    mostrarError,
+    editarProyecto, // Funcion para editar un proyecto
   } = proyectosContext;
 
   // State para proyecto
   const [proyecto, setProyecto] = useState({
-    nombre: ""
+    nombre: "",
   });
 
   // Extraer nombre del proyecto
   const { nombre } = proyecto;
 
   // Lee los contenidos del input
-  const onChangeProyecto = e => {
+  const onChangeProyecto = (e) => {
     setProyecto({
       ...proyecto,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
+  useEffect(() => {
+    if (proyectoEditar) {
+      setProyecto({
+        nombre: proyectoEditar.nombre,
+      });
+    }
+  }, [proyectoEditar]);
+
   // Cuando el usuario envia un proyecto
-  const onSubmitProyecto = e => {
+  const onSubmitProyecto = (e) => {
     e.preventDefault();
 
     // Validar el proyecto
@@ -41,12 +51,16 @@ const NuevoProyecto = () => {
     }
 
     // Agregarlo al state
-    agregarProyecto(proyecto);
-
-    // Reiniciar el form
-    setProyecto({
-      nombre: ""
-    });
+    //agregar o editar
+    if (proyectoEditar) {
+      editarProyecto(proyectoEditar._id, proyecto);
+    } else {
+      agregarProyecto(proyecto);
+      // Reiniciar el form
+      setProyecto({
+        nombre: "",
+      });
+    }
   };
 
   const onClickNuevoProyecto = async () => {
@@ -79,7 +93,7 @@ const NuevoProyecto = () => {
           />
           <input
             type='submit'
-            value='Agregar Proyecto'
+            value={proyectoEditar ? "Editar Proyecto" : "Agregar Proyecto"}
             className='btn btn-primario btn-block'
           />
         </form>

@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
 import proyectoContext from "./proyectoContext";
 import proyectoReducer from "./proyectoReducer";
 import clienteAxios from '../../config/axios';
@@ -86,14 +86,14 @@ const ProyectoState = props => {
     }
   }
 
-  const editarProyecto = async (proyecto) => {
+  const editarProyecto = async (id, proyecto) => {
     try {
       // Editar un proyecto
-      const resultado = await clienteAxios.put(`/api/proyectos/${proyecto._id}`, proyecto);
+      const resultado = await clienteAxios.put(`/api/proyectos/${id}`, proyecto);
       // Editar el proyecto en el state
       dispatch({
         type: EDITAR_PROYECTO,
-        payload: resultado.data
+        payload: resultado.data.proyecto
       });
     } catch (error) {
       const alerta = {
@@ -126,7 +126,6 @@ const ProyectoState = props => {
 
   // Selecciona el proyecto que el usuario dio click
   const proyectoSeleccionado = proyecto => {
-    console.log(proyecto);
     dispatch({
       type: PROYECTO_SELECCIONADO,
       payload: proyecto

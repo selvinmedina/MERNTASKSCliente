@@ -20,12 +20,16 @@ export default (state, action) => {
     case EDITAR_PROYECTO:
       return {
         ...state,
-        proyectos: state.proyectos.map(proyecto => proyecto._id === action.payload._id ? action.payload : proyecto)
+        proyectos: state.proyectos.map(proyecto => proyecto._id === action.payload._id ? action.payload : proyecto),
+        formulario: false,
+        proyecto: state.proyecto ? [action.payload] : null,
+        proyectoEditar: null
       }
     case PROYECTO_SELECCIONADO:
       return {
         ...state,
-        proyectoEditar: action.payload
+        proyectoEditar: action.payload,
+        formulario: true
       }
     case OBTENER_PROYECTOS:
       return {
