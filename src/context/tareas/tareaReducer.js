@@ -18,8 +18,8 @@ export default (state, action) => {
         case AGREGAR_TAREA:
             return {
                 ...state,
+                errorTarea: false,
                 tareasProyecto: [action.payload, ...state.tareasProyecto],
-                errorTarea: false
             }
 
         case VALIDAR_TAREA:
