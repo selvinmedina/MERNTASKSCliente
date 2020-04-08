@@ -49,10 +49,11 @@ const TareaState = props => {
     // Agregar una tarea al proyecto seleccionado
     const agregarTarea = async tarea => {
         try {
-            await clienteAxios.post('/api/proyecto/tareas', tarea);
+            const resultado = await clienteAxios.post('/api/proyecto/tareas', tarea);
+
             dispatch({
                 type: AGREGAR_TAREA,
-                payload: tarea
+                payload: resultado.data.tarea
             });
         } catch (error) {
             console.log(error);
