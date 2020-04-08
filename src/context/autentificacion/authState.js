@@ -88,7 +88,7 @@ const AuthState = props => {
 
         } catch (error) {
             const alerta = {
-                msg: error.response.data.msg,
+                msg: error.response?.data.msg || 'Error en el servidor',
                 categoria: 'alerta-error'
             }
 
