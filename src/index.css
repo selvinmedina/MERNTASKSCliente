@@ -86,7 +86,7 @@ a {
 .btn-blank {
   margin: 0;
   padding: 0;
-  display: block;
+
   background-color: transparent;
 }
 
@@ -368,4 +368,12 @@ aside {
 
 .cerrar-sesion {
   color: #fff;
+}
+
+.izquierda {
+  float: right;
+}
+
+.izquierda:hover {
+  cursor: pointer;
 }

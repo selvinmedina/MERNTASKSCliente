@@ -5,7 +5,9 @@ import {
   VALIDAR_FORMULARIO,
   PROYECTO_ACTUAL,
   ELIMINAR_PROYECTO,
-  PROYECTO_ERROR
+  PROYECTO_ERROR,
+  EDITAR_PROYECTO,
+  PROYECTO_SELECCIONADO
 } from '../../types';
 
 export default (state, action) => {
@@ -14,6 +16,16 @@ export default (state, action) => {
       return {
         ...state,
         formulario: true
+      }
+    case EDITAR_PROYECTO:
+      return {
+        ...state,
+        proyectos: state.proyectos.map(proyecto => proyecto._id === action.payload._id ? action.payload : proyecto)
+      }
+    case PROYECTO_SELECCIONADO:
+      return {
+        ...state,
+        proyectoEditar: action.payload
       }
     case OBTENER_PROYECTOS:
       return {

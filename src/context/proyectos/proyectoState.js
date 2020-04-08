@@ -10,7 +10,9 @@ import {
   VALIDAR_FORMULARIO,
   PROYECTO_ACTUAL,
   ELIMINAR_PROYECTO,
-  PROYECTO_ERROR
+  PROYECTO_ERROR,
+  EDITAR_PROYECTO,
+  PROYECTO_SELECCIONADO
 } from '../../types';
 
 const ProyectoState = props => {
@@ -19,7 +21,8 @@ const ProyectoState = props => {
     formulario: false,
     errorformulario: false,
     proyecto: null,
-    mensaje: null
+    mensaje: null,
+    proyectoEditar: null
   };
 
   // Dispatch para ejecutar las acciones
@@ -83,6 +86,29 @@ const ProyectoState = props => {
     }
   }
 
+  const editarProyecto = async (proyecto) => {
+    try {
+      // Editar un proyecto
+      const resultado = await clienteAxios.put(`/api/proyectos/${proyecto._id}`, proyecto);
+      // Editar el proyecto en el state
+      dispatch({
+        type: EDITAR_PROYECTO,
+        payload: resultado.data
+      });
+    } catch (error) {
+      const alerta = {
+        msg: '',
+        categoria: ''
+      }
+      alerta.msg = 'Hubo un error';
+      alerta.categoria = 'alerta-error';
+      dispatch({
+        type: PROYECTO_ERROR,
+        payload: alerta
+      });
+    }
+  }
+
   // Validar el formulario por errores
   const mostrarError = () => {
     dispatch({
@@ -95,6 +121,15 @@ const ProyectoState = props => {
     dispatch({
       type: PROYECTO_ACTUAL,
       payload: proyectoId
+    });
+  }
+
+  // Selecciona el proyecto que el usuario dio click
+  const proyectoSeleccionado = proyecto => {
+    console.log(proyecto);
+    dispatch({
+      type: PROYECTO_SELECCIONADO,
+      payload: proyecto
     });
   }
 
@@ -133,12 +168,15 @@ const ProyectoState = props => {
     errorformulario: state.errorformulario,
     proyecto: state.proyecto,
     mensaje: state.mensaje,
+    proyectoEditar: state.proyectoEditar,
     agregarProyecto,
     mostrarFormulario,
     mostrarError,
     obtenerProyectos,
     proyectoActual,
-    eliminarProyecto
+    eliminarProyecto,
+    editarProyecto,
+    proyectoSeleccionado
   }}>{props.children}</proyectoContext.Provider>;
 };
 

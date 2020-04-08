@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import proyectoContext from "../../context/proyectos/proyectoContext";
 import TareaContext from "../../context/tareas/tareaContext";
+import imagen from "../../assets/img/edit.png";
 
 const Proyecto = ({ proyecto }) => {
   // Obtener el state del proyecto
   const proyectosContext = useContext(proyectoContext);
 
   // Extraer funciones y objetos del context
-  const { proyectoActual } = proyectosContext;
+  const { proyectoActual, proyectoSeleccionado } = proyectosContext;
 
   // Obtener la funcion del context de tarea
   const tareasContext = useContext(TareaContext);
@@ -21,8 +22,13 @@ const Proyecto = ({ proyecto }) => {
     obtenerTareas(id); // Filtrar las tareas cuando se de click
   };
 
+  // Funcion para editar un proyecto
+  const editarProyecto = () => {
+    proyectoSeleccionado(proyecto); // Fijar un proyecto actual
+  };
+
   return (
-    <li>
+    <li className=''>
       <button
         type='button'
         className='btn btn-blank'
@@ -30,6 +36,7 @@ const Proyecto = ({ proyecto }) => {
       >
         {proyecto.nombre}
       </button>
+      <img src={imagen} alt='' className='izquierda' onClick={editarProyecto} />
     </li>
   );
 };
