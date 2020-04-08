@@ -18,12 +18,12 @@ const FormTarea = () => {
     validarTarea,
     obtenerTareas,
     actualizarTarea,
-    limpiarTarea
+    limpiarTarea,
   } = tareasContext;
 
   // State del formulario
   const [tarea, setTarea] = useState({
-    nombre: ""
+    nombre: "",
   });
 
   // Focus a una tarea
@@ -40,10 +40,10 @@ const FormTarea = () => {
   useEffect(() => {
     if (tareaSeleccionada !== null) {
       setTarea(tareaSeleccionada);
-      focusTarea();
+      //focusTarea();
     } else {
       setTarea({
-        nombre: ""
+        nombre: "",
       });
     }
   }, [tareaSeleccionada]);
@@ -55,10 +55,10 @@ const FormTarea = () => {
   const [proyectoActual] = proyecto;
 
   //Leer los valores del formulario
-  const handleChange = e => {
+  const handleChange = (e) => {
     setTarea({
       ...tarea,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -66,7 +66,7 @@ const FormTarea = () => {
   const { nombre } = tarea;
 
   // Submit
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
     // Validar
@@ -80,8 +80,7 @@ const FormTarea = () => {
       // Tarea nueva
 
       // Nueva tarea al state de tareas
-      tarea.proyectoId = proyectoActual.id;
-      tarea.estado = false;
+      tarea.proyecto = proyectoActual._id;
       agregarTarea(tarea);
     } else {
       // Actualizar tarea existente
@@ -90,11 +89,11 @@ const FormTarea = () => {
     }
 
     // Obtener y filtrar las taras del proyecto actual
-    obtenerTareas(proyectoActual.id);
+    obtenerTareas(proyectoActual._id);
 
     // Reiniciar el form
     setTarea({
-      nombre: ""
+      nombre: "",
     });
   };
 

@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from "react";
+import React, { useReducer } from "react";
 import proyectoContext from "./proyectoContext";
 import proyectoReducer from "./proyectoReducer";
 import clienteAxios from '../../config/axios';
@@ -139,7 +139,7 @@ const ProyectoState = props => {
       categoria: ''
     }
     try {
-      const resultado = await clienteAxios.delete(`/api/proyectos/${proyectoId}`);
+      await clienteAxios.delete(`/api/proyectos/${proyectoId}`);
 
       alerta.msg = 'Eliminado correctamente';
       alerta.categoria = 'alerta-ok';

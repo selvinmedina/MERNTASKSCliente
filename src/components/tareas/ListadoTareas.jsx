@@ -18,7 +18,6 @@ const ListadoTareas = () => {
   if (!proyecto) return <h2>Selecciona un proyecto</h2>;
 
   // Array destructuring para extraer el proyecto actual
-  console.log(proyecto);
   const [proyectoActual] = proyecto;
 
   // Eliminar proyecto
@@ -40,11 +39,7 @@ const ListadoTareas = () => {
             {tareasProyecto.map((
               tarea //Index.css linea 263, ahi estan las animaciones
             ) => (
-              <CSSTransition
-                key={"css-" + tarea.id}
-                timeout={200}
-                classNames='tarea'
-              >
+              <CSSTransition key={tarea._id} timeout={200} classNames='tarea'>
                 <Tarea key={tarea.id} tarea={tarea} />
               </CSSTransition>
             ))}

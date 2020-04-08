@@ -10,6 +10,7 @@ const RutaPrivada = ({ component: Component, ...props }) => {
 
     useEffect(() => {
         usuarioAutenticado();
+        //eslint-disable-next-line
     }, []);
 
     // revisamos si el usuario esta autenticado

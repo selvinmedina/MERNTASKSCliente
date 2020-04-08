@@ -14,6 +14,7 @@ const Proyecto = ({ proyecto }) => {
   const tareasContext = useContext(TareaContext);
 
   // Extraer funciones y objetos de tarea context
+  // eslint-disable-next-line
   const { obtenerTareas } = tareasContext;
 
   // Funcion para agregar el proyecto actual

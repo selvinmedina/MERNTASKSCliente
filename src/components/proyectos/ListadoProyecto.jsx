@@ -19,6 +19,7 @@ const ListadoProyecto = () => {
       mostrarAlerta(mensaje.msg, mensaje.categoria);
     }
     obtenerProyectos();
+    // eslint-disable-next-line
   }, [mensaje]);
 
   if (proyectos.length === 0)
@@ -32,7 +33,7 @@ const ListadoProyecto = () => {
       <TransitionGroup>
         {proyectos.map((proyecto) => (
           <CSSTransition key={proyecto._id} timeout={200} classNames='proyecto'>
-            <Proyecto key={proyecto.id} proyecto={proyecto} />
+            <Proyecto key={proyecto._id} proyecto={proyecto} />
           </CSSTransition>
         ))}
       </TransitionGroup>
